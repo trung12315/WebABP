@@ -5,6 +5,7 @@ namespace Acme.BookStore.Books
 {
     public class CreateUpdateBookDto
     {
+        public Guid AuthorId { get; set; }
         [Required]
         [StringLength(128)]
         public string Name { get; set; }
@@ -18,8 +19,8 @@ namespace Acme.BookStore.Books
 
         [Required]
         public float Price { get; set; }
-        [Required]
-        public Guid AuthorId { get; set; }
+     
+       
 
     }
 }
