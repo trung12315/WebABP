@@ -5,7 +5,7 @@ namespace Acme.BookStore.Books
 {
     public class CreateUpdateBookDto
     {
-        public Guid Supplier { get; set; }
+        public Guid SupplierId { get; set; }
         public Guid AuthorId { get; set; }
         [Required]
         [StringLength(128)]
