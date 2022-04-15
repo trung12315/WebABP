@@ -23,10 +23,24 @@ namespace Acme.BookStore.Permissions
                 BookStorePermissions.Authors.Delete, L("Permission:Authors.Delete"));
 
 
-            var booksPermission = bookStoreGroup.AddPermission(BookStorePermissions.Books.Default, L("Permission:Books"));
-            booksPermission.AddChild(BookStorePermissions.Books.Create, L("Permission:Books.Create"));
-            booksPermission.AddChild(BookStorePermissions.Books.Edit, L("Permission:Books.Edit"));
-            booksPermission.AddChild(BookStorePermissions.Books.Delete, L("Permission:Books.Delete"));
+            var booksPermission = bookStoreGroup.AddPermission(
+            BookStorePermissions.Books.Default, L("Permission:Books"));
+            booksPermission.AddChild(
+                BookStorePermissions.Books.Create, L("Permission:Books.Create"));
+            booksPermission.AddChild(
+                BookStorePermissions.Books.Edit, L("Permission:Books.Edit"));
+            booksPermission.AddChild(
+                BookStorePermissions.Books.Delete, L("Permission:Books.Delete"));
+
+
+            //var SupplierPermission = bookStoreGroup.AddPermission(
+            //    BookStorePermissions.Suppliers.Default, L("Permission:Supplier"));
+            //SupplierPermission.AddChild(
+            //    BookStorePermissions.Suppliers.Create, L("Permission:Suppliers.Create"));
+            //SupplierPermission.AddChild(
+            //    BookStorePermissions.Suppliers.Edit, L("Permission:Suppliers.Edit"));
+            //SupplierPermission.AddChild(
+            //    BookStorePermissions.Suppliers.Delete, L("Permission:Suppliers.Delete"));
         }
 
         private static LocalizableString L(string name)

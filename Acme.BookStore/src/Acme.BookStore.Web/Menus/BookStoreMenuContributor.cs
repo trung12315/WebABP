@@ -48,6 +48,14 @@ namespace Acme.BookStore.Web.Menus
                     url: "/Books"
                 ));
             }
+            if (await context.IsGrantedAsync(BookStorePermissions.Suppliers.Default))
+            {
+                bookStoreMenu.AddItem(new ApplicationMenuItem(
+                    "BooksStore.Suppliers",
+                    l["Menu:Suppliers"],
+                    url: "/Suppliers"
+                ));
+            }
             if (await context.IsGrantedAsync(BookStorePermissions.Authors.Default))
             {
                 bookStoreMenu.AddItem(new ApplicationMenuItem(

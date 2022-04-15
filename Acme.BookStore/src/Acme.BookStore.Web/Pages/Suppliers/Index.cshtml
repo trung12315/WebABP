@@ -1,0 +1,33 @@
+﻿@page
+@using Acme.BookStore.Localization
+@using Acme.BookStore.Permissions
+@using Acme.BookStore.Web.Pages.Suppliers
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<BookStoreResource> L
+@*@inject IAuthorizationService AuthorizationService*@
+@model IndexModel
+
+@section scripts
+{
+    <abp-script src="/Pages/Suppliers/Index.js"/>
+}
+
+<abp-card>
+    <abp-card-header>
+       <abp-row>
+            <abp-column size-md="_6">
+                <abp-card-title>@L["Supplires"]</abp-card-title>
+            </abp-column>
+            <abp-column size-md="_6" class="text-end">
+                <abp-button id="NewSupplierButton"
+                            text="@L["NewSuppliers"].Value"
+                            icon="plus"
+                            button-type="Primary"/>
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        <abp-table striped-rows="true" id="SuppliersTable"></abp-table>
+    </abp-card-body>
+</abp-card>

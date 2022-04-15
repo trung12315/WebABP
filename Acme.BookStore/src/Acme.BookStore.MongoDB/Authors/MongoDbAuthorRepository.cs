@@ -39,7 +39,7 @@ namespace Acme.BookStore.Authors
                     !filter.IsNullOrWhiteSpace(),
                     author => author.Name.Contains(filter)
                 )
-                .OrderBy(sorting)
+                //.OrderBy(sorting)
                 .As<IMongoQueryable<Author>>()
                 .Skip(skipCount)
                 .Take(maxResultCount)

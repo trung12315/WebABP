@@ -25,8 +25,8 @@ public class SupplierManager : DomainService
     {
         Check.NotNullOrWhiteSpace(name, nameof(name));
 
-        var existingAuthor = await _supplierRepository.FindByNameAsync(name);
-        if (existingAuthor != null)
+        var existingSupplier = await _supplierRepository.FindByNameAsync(name);
+        if (existingSupplier != null)
         {
             throw new SupplierAlreadyExistsException(name);
         }
@@ -46,8 +46,8 @@ public class SupplierManager : DomainService
         Check.NotNull(supplier, nameof(supplier));
         Check.NotNullOrWhiteSpace(newName, nameof(newName));
 
-        var existingAuthor = await _supplierRepository.FindByNameAsync(newName);
-        if (existingAuthor != null && existingAuthor.Id != supplier.Id)
+        var existingSupplier= await _supplierRepository.FindByNameAsync(newName);
+        if (existingSupplier != null && existingSupplier.Id != supplier.Id)
         {
             throw new SupplierAlreadyExistsException(newName);
         }

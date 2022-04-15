@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp;
 
-namespace Acme.BookStore.Suppliers
+namespace Acme.BookStore.Users
 {
-    public class SupplierAlreadyExistsException : BusinessException
+    public class UserAlreadyExistsException : BusinessException
     {
-        public SupplierAlreadyExistsException(string name)
+        public UserAlreadyExistsException(string name)
             : base(BookStoreDomainErrorCodes.AuthorAlreadyExists)
         {
             WithData("name", name);

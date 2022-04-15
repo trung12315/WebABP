@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using Acme.BookStore.Authors;
 using Acme.BookStore.Books;
+using Acme.BookStore.Suppliers;
+using Acme.BookStore.Users;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Domain.Repositories;
@@ -14,15 +16,22 @@ namespace Acme.BookStore
         private readonly IRepository<Book, Guid> _bookRepository;
         private readonly IAuthorRepository _authorRepository;
         private readonly AuthorManager _authorManager;
+        private readonly ISupplierRepository _supplierReposiroty;
+        private readonly SupplierManager _supplierManager;
+        private readonly IRepository<User, Guid> _userRepository;
 
-        public BookStoreDataSeederContributor(
+        public BookStoreDataSeederContributor(IRepository<User, Guid> userRepository,
             IRepository<Book, Guid> bookRepository,
             IAuthorRepository authorRepository,
-            AuthorManager authorManager)
+            AuthorManager authorManager, ISupplierRepository supplierRepository,SupplierManager supplierManager)
         {
+            _userRepository = userRepository;
             _bookRepository = bookRepository;
             _authorRepository = authorRepository;
             _authorManager = authorManager;
+            _supplierReposiroty = supplierRepository;
+            _supplierManager = supplierManager;
+
         }
 
         public async Task SeedAsync(DataSeedContext context)
@@ -31,7 +40,22 @@ namespace Acme.BookStore
             {
                 return;
             }
+            var Trung = await _supplierReposiroty.InsertAsync(
+           await _supplierManager.CreateAsync(
+              "Thanh Trung",
+              0364267605,
+              "20 duong ba trac"
+          )
+           );
+            var Trung1 = await _supplierReposiroty.InsertAsync(
+     await _supplierManager.CreateAsync(
+        "Thanh dtrai",
+        0364267606,
+        "22 duong ba trac"
+    )
 
+     ); 
+            
             var orwell = await _authorRepository.InsertAsync(
                 await _authorManager.CreateAsync(
                     "George Orwell",
@@ -46,8 +70,7 @@ namespace Acme.BookStore
                     new DateTime(1952, 03, 11),
                     "Douglas Adams was an English author, screenwriter, essayist, humorist, satirist and dramatist. Adams was an advocate for environmentalism and conservation, a lover of fast cars, technological innovation and the Apple Macintosh, and a self-proclaimed 'radical atheist'."
                 )
-            );
-
+            );          
             await _bookRepository.InsertAsync(
                 new Book
                 {
@@ -71,6 +94,15 @@ namespace Acme.BookStore
                 },
                 autoSave: true
             );
+            //await _userRepository.InsertAsync(
+            //       new User
+            //       {
+            //           Name = "1984",      
+            //           Age = 19
+            //       },
+            //       autoSave: true
+            //   );
+
         }
     }
 }

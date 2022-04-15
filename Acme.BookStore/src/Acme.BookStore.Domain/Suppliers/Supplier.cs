@@ -11,7 +11,7 @@ namespace Acme.BookStore.Suppliers
 {
     public class Supplier : FullAuditedAggregateRoot<Guid>
     {
-        public string Name { get; set; }
+        public string Name { get; private set; }
         public int Phone { get; set; }
 
         public string Address { get; set; }
@@ -19,20 +19,26 @@ namespace Acme.BookStore.Suppliers
         private Supplier()
         { 
         }
-        internal Supplier ChangeName([NotNull] string name)
-        {
-            SetName(name);
-            return this;
-        }
-        internal Supplier(Guid id, [NotNull] string name, [NotNull] int phone ,[NotNull] string address):base(id)
+        internal Supplier(
+            Guid id,
+            [NotNull] string name, 
+            [NotNull] int phone, 
+            [NotNull] string address) 
+            : base(id)
         {
             SetName(name);
             Phone = phone;
             Address = address;
         }
+        internal Supplier ChangeName([NotNull] string name)
+        {
+            SetName(name);
+            return this;
+        }
+
         private void SetName([NotNull] string name)
         {
-            Name = Check.NotNullOrWhiteSpace(name, nameof(name), maxLength: PupplierConsts.MaxNameLength);          
+            Name = Check.NotNullOrWhiteSpace(name, nameof(name), maxLength: SupplierConsts.MaxNameLength);          
         }
 
   

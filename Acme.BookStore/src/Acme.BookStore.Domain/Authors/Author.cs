@@ -15,7 +15,6 @@ namespace Acme.BookStore.Authors
         {
             /* This constructor is for deserialization / ORM purpose */
         }
-
         internal Author(
             Guid id,
             [NotNull] string name,

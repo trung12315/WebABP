@@ -43,7 +43,12 @@
     "Authors": "Authors",
     "AuthorDeletionConfirmationMessage": "Are you sure to delete the author '{0}'?",
     "BirthDate": "Birth date",
-    "NewAuthor": "New author"
+    "NewAuthor": "New author",
+    "Permission:Suppliers": "Suppliers Management",
+    "Permission:Suppliers.Create": "Creating new Suppliers",
+    "Permission:Suppliers.Edit": "Editing the Suppliers",
+    "Permission:Suppliers.Delete": "Deleting the Suppliers",
+    "BookStore:00002": "There is already an Supplier with the same name: {name}"
 
   }
 
