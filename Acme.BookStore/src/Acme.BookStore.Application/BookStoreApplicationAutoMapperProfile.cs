@@ -10,7 +10,8 @@ public class BookStoreApplicationAutoMapperProfile : Profile
 {
     public BookStoreApplicationAutoMapperProfile()
     {
-       
+        //CreateMap<Pages.Suppliers.CreateModalModel.CreateSupplierViewModel,
+        //              CreateSupplierDto>();
         CreateMap<Supplier, SupplierDto>();
         CreateMap<Author, AuthorDto>();
         CreateMap<Book, BookDto>();
@@ -18,7 +19,7 @@ public class BookStoreApplicationAutoMapperProfile : Profile
         CreateMap<Author, AuthorLookupDto>();
         CreateMap<User, UserDto>();
         CreateMap<Supplier, SupplierLookupDto>();
-        //CreateMap<Supplier, SupplierLookupDto>();
+        CreateMap<Supplier, SupplierLookupDto>();
 
         /* You can configure your AutoMapper mapping configuration here.
          * Alternatively, you can split your mapping configurations

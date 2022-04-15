@@ -65,17 +65,17 @@ namespace Acme.BookStore.Suppliers
         //[Authorize(BookStorePermissions.Suppliers.Edit)]
         public async Task UpdateAsync(Guid id, UpdateSupplierDto input)
         {
-            var author = await _supplierRepository.GetAsync(id);
+            var supplier = await _supplierRepository.GetAsync(id);
 
-            if (author.Name != input.Name)
+            if (supplier.Name != input.Name)
             {
-                await _suppliermanager.ChangeNameAsync(author, input.Name);
+                await _suppliermanager.ChangeNameAsync(supplier, input.Name);
             }
 
-            author.Phone = input.Phone;
-            author.Address = input.Address;
+            supplier.Phone = input.Phone;
+            supplier.Address = input.Address;
 
-            await _supplierRepository.UpdateAsync(author);
+            await _supplierRepository.UpdateAsync(supplier);
         }
         //[Authorize(BookStorePermissions.Suppliers.Delete)]
         public async Task DeleteAsync(Guid id)

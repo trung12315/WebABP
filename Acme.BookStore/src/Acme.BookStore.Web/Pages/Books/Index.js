@@ -55,6 +55,10 @@
                     title: l('Author'),
                     data: "authorName"
                 },
+                {
+                    title: l('Supplier'),
+                    data: "supplierName"
+                },
 
         
                 {

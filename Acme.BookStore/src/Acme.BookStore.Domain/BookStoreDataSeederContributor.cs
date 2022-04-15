@@ -74,6 +74,7 @@ namespace Acme.BookStore
             await _bookRepository.InsertAsync(
                 new Book
                 {
+                    SupplierId= Trung.Id,
                     AuthorId = orwell.Id, // SET THE AUTHOR
                     Name = "1984",
                     Type = BookType.Dystopia,
@@ -86,6 +87,7 @@ namespace Acme.BookStore
             await _bookRepository.InsertAsync(
                 new Book
                 {
+                    SupplierId = Trung1.Id,
                     AuthorId = douglas.Id, // SET THE AUTHOR
                     Name = "The Hitchhiker's Guide to the Galaxy",
                     Type = BookType.ScienceFiction,

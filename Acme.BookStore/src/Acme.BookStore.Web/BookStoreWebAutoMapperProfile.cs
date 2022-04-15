@@ -1,5 +1,6 @@
 ﻿using Acme.BookStore.Authors;
 using Acme.BookStore.Books;
+using Acme.BookStore.Suppliers;
 using AutoMapper;
 
 namespace Acme.BookStore.Web
@@ -8,6 +9,8 @@ namespace Acme.BookStore.Web
     {
         public BookStoreWebAutoMapperProfile()
         {
+            CreateMap<Pages.Suppliers.CreateModalModel.CreateSupplierViewModel,
+                          CreateSupplierDto>();
             CreateMap<BookDto, CreateUpdateBookDto>();
 
             CreateMap<Pages.Authors.CreateModalModel.CreateAuthorViewModel,
@@ -20,6 +23,9 @@ namespace Acme.BookStore.Web
             CreateMap<Pages.Books.CreateModalModel.CreateBookViewModel, CreateUpdateBookDto>();
             CreateMap<BookDto, Pages.Books.EditModalModel.EditBookViewModel>();
             CreateMap<Pages.Books.EditModalModel.EditBookViewModel, CreateUpdateBookDto>();
+            CreateMap<Pages.Suppliers.EditModalModel.EditSupplierViewModel,
+                      UpdateSupplierDto>();
+            CreateMap<SupplierDto, Pages.Suppliers.EditModalModel.EditSupplierViewModel>();
         }
     }
 }

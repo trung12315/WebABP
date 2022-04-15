@@ -14,6 +14,6 @@ namespace Acme.BookStore.Books
     {
         //ADD the NEW METHOD
         Task<ListResultDto<AuthorLookupDto>> GetAuthorLookupAsync();
-        //Task<ListResultDto<SupplierLookupDto>> GetSupplierLookupAsync();
+        Task<ListResultDto<SupplierLookupDto>> GetSupplierLookupAsync();
     }
 }

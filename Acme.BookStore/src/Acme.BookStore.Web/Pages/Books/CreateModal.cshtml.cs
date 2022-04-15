@@ -17,6 +17,7 @@ namespace Acme.BookStore.Web.Pages.Books
         public CreateBookViewModel Book { get; set; }
 
         public List<SelectListItem> Authors { get; set; }
+        public List<SelectListItem> Suppliers { get; set; }
 
         private readonly IBookAppService _bookAppService;
 
@@ -34,6 +35,10 @@ namespace Acme.BookStore.Web.Pages.Books
             Authors = authorLookup.Items
                 .Select(x => new SelectListItem(x.Name, x.Id.ToString()))
                 .ToList();
+            var supplierLookup = await _bookAppService.GetSupplierLookupAsync();
+            Suppliers = supplierLookup.Items
+                .Select(x => new SelectListItem(x.Name, x.Id.ToString()))
+                .ToList();
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -46,6 +51,10 @@ namespace Acme.BookStore.Web.Pages.Books
 
         public class CreateBookViewModel
         {
+            [SelectItems(nameof(Suppliers))]
+            [DisplayName("Supplier")]
+            public Guid SupplierId { get; set; }
+
             [SelectItems(nameof(Authors))]
             [DisplayName("Author")]
             public Guid AuthorId { get; set; }

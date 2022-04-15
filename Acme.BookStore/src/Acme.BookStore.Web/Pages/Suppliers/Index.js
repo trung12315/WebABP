@@ -18,17 +18,19 @@
                             [
                                 {
                                     text: l('Edit'),
+                                  
                                     action: function (data) {
                                         editModal.open({ id: data.record.id });
                                     }
                                 },
                                 {
                                     text: l('Delete'),
+                               
                                     confirmMessage: function (data) {
                                         return l('SupplierDeletionConfirmationMessage', data.record.name);
                                     },
                                     action: function (data) {
-                                        acme.bookStore.suppliers.supplierAppSevice
+                                        acme.bookStore.suppliers.supplier
                                             .delete(data.record.id)
                                             .then(function () {
                                                 abp.notify.info(l('SuccessfullyDeleted'));
@@ -65,7 +67,7 @@
         dataTable.ajax.reload();
     });
 
-    $('#NewSuppliersButton').click(function (e) {
+    $('#NewSupplierButton').click(function (e) {
         e.preventDefault();
         createModal.open();
     });

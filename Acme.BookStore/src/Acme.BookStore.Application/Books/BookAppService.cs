@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
+using Acme.BookStore.Suppliers;
 
 namespace Acme.BookStore.Books
 {
@@ -23,12 +24,14 @@ namespace Acme.BookStore.Books
         IBookAppService //implement the IBookAppService
     {
         private readonly IAuthorRepository _authorRepository;
+        private readonly ISupplierRepository _supplierRepository;
 
         public BookAppService(
-            IRepository<Book, Guid> repository,
+            IRepository<Book, Guid> repository, ISupplierRepository supplierRepository,
             IAuthorRepository authorRepository)
             : base(repository)
         {
+            _supplierRepository= supplierRepository;
             _authorRepository = authorRepository;
             GetPolicyName = BookStorePermissions.Books.Default;
             GetListPolicyName = BookStorePermissions.Books.Default;
@@ -41,10 +44,11 @@ namespace Acme.BookStore.Books
         {
             var book = await Repository.GetAsync(id);
             var bookDto = ObjectMapper.Map<Book, BookDto>(book);
-
+            var supplier = await _supplierRepository.GetAsync(book.SupplierId);
+            bookDto.SupplierName = supplier.Name;
             var author = await _authorRepository.GetAsync(book.AuthorId);
             bookDto.AuthorName = author.Name;
-
+            
             return bookDto;
         }
 
@@ -74,10 +78,17 @@ namespace Acme.BookStore.Books
             //Get a lookup dictionary for the related authors
             var authorDictionary = await GetAuthorDictionaryAsync(books);
 
+          
             //Set AuthorName for the DTOs
             bookDtos.ForEach(bookDto => bookDto.AuthorName =
                              authorDictionary[bookDto.AuthorId].Name);
 
+            var supplierDictionary = await GetSupplierDictionaryAsync(books);
+
+            bookDtos.ForEach(bookDto => bookDto.SupplierName =
+                     supplierDictionary[bookDto.SupplierId].Name);
+
+            
             //Get the total count with another query (required for the paging)
             var totalCount = await Repository.GetCountAsync();
 
@@ -95,7 +106,30 @@ namespace Acme.BookStore.Books
                 ObjectMapper.Map<List<Author>, List<AuthorLookupDto>>(authors)
             );
         }
+        public async Task<ListResultDto<SupplierLookupDto>> GetSupplierLookupAsync()
+        {
+            var suppliers = await _supplierRepository.GetListAsync();
 
+            return new ListResultDto<SupplierLookupDto>(
+                ObjectMapper.Map<List<Supplier>, List<SupplierLookupDto>>(suppliers)
+            );
+        }
+        private async Task<Dictionary<Guid, Supplier>>
+           GetSupplierDictionaryAsync(List<Book> books)
+        {
+            var SupplierIds = books
+                .Select(b => b.SupplierId)
+                .Distinct()
+                .ToArray();
+
+            var queryable = await _supplierRepository.GetQueryableAsync();
+
+            var suppliers = await AsyncExecuter.ToListAsync(
+                queryable.Where(a => SupplierIds.Contains(a.Id))
+            );
+
+            return suppliers.ToDictionary(x => x.Id, x => x);
+        }
         private async Task<Dictionary<Guid, Author>>
             GetAuthorDictionaryAsync(List<Book> books)
         {
